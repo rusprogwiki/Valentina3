@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="10"/>
+    <BuildModes Active="Default"/>
+    <Units Count="7">
+      <Unit0>
+        <Filename Value="project1.ppr"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos Y="20"/>
+        <UsageCount Value="106"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="unit1.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form1"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="Unit1"/>
+        <TopLine Value="201"/>
+        <CursorPos X="74" Y="157"/>
+        <UsageCount Value="106"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="core.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="142"/>
+        <CursorPos X="48" Y="330"/>
+        <UsageCount Value="106"/>
+        <Loaded Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="unit2.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form2"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="Unit2"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="16"/>
+        <CursorPos X="26" Y="33"/>
+        <UsageCount Value="36"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="storage.pas"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="157"/>
+        <CursorPos X="18" Y="249"/>
+        <UsageCount Value="48"/>
+        <Loaded Value="True"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="C:\codetyphon\fpcsrc\rtl\objpas\classes\parser.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="321"/>
+        <CursorPos X="21" Y="338"/>
+        <UsageCount Value="9"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="parser.pas"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="7"/>
+        <CursorPos X="37" Y="17"/>
+        <UsageCount Value="48"/>
+        <Loaded Value="True"/>
+      </Unit6>
+    </Units>
+    <JumpHistory Count="28" HistoryIndex="27">
+      <Position1>
+        <Filename Value="storage.pas"/>
+        <Caret Line="553" Column="23" TopLine="526"/>
+      </Position1>
+      <Position2>
+        <Filename Value="storage.pas"/>
+        <Caret Line="581" Column="23" TopLine="554"/>
+      </Position2>
+      <Position3>
+        <Filename Value="storage.pas"/>
+        <Caret Line="609" Column="23" TopLine="582"/>
+      </Position3>
+      <Position4>
+        <Filename Value="storage.pas"/>
+        <Caret Line="637" Column="23" TopLine="610"/>
+      </Position4>
+      <Position5>
+        <Filename Value="storage.pas"/>
+        <Caret Line="663" Column="23" TopLine="636"/>
+      </Position5>
+      <Position6>
+        <Filename Value="storage.pas"/>
+        <Caret Line="683" Column="23" TopLine="656"/>
+      </Position6>
+      <Position7>
+        <Filename Value="storage.pas"/>
+        <Caret Line="714" Column="24" TopLine="687"/>
+      </Position7>
+      <Position8>
+        <Filename Value="storage.pas"/>
+        <Caret Line="720" Column="24" TopLine="693"/>
+      </Position8>
+      <Position9>
+        <Filename Value="storage.pas"/>
+        <Caret Line="802" Column="24" TopLine="775"/>
+      </Position9>
+      <Position10>
+        <Filename Value="storage.pas"/>
+        <Caret Line="808" Column="24" TopLine="781"/>
+      </Position10>
+      <Position11>
+        <Filename Value="storage.pas"/>
+        <Caret Line="832" Column="24" TopLine="806"/>
+      </Position11>
+      <Position12>
+        <Filename Value="storage.pas"/>
+        <Caret Line="847" Column="24" TopLine="821"/>
+      </Position12>
+      <Position13>
+        <Filename Value="storage.pas"/>
+        <Caret Line="848" Column="24" TopLine="822"/>
+      </Position13>
+      <Position14>
+        <Filename Value="storage.pas"/>
+        <Caret Line="896" Column="28" TopLine="870"/>
+      </Position14>
+      <Position15>
+        <Filename Value="storage.pas"/>
+        <Caret Line="956" Column="23" TopLine="929"/>
+      </Position15>
+      <Position16>
+        <Filename Value="storage.pas"/>
+        <Caret Line="971" Column="24" TopLine="944"/>
+      </Position16>
+      <Position17>
+        <Filename Value="storage.pas"/>
+        <Caret Line="994" Column="24" TopLine="968"/>
+      </Position17>
+      <Position18>
+        <Filename Value="storage.pas"/>
+        <Caret Line="1075" Column="19" TopLine="1049"/>
+      </Position18>
+      <Position19>
+        <Filename Value="storage.pas"/>
+        <Caret Line="1181" Column="23" TopLine="1154"/>
+      </Position19>
+      <Position20>
+        <Filename Value="storage.pas"/>
+        <Caret Line="1349" Column="23" TopLine="1322"/>
+      </Position20>
+      <Position21>
+        <Filename Value="storage.pas"/>
+        <Caret Line="1455" Column="23" TopLine="1428"/>
+      </Position21>
+      <Position22>
+        <Filename Value="storage.pas"/>
+        <Caret Line="182" TopLine="163"/>
+      </Position22>
+      <Position23>
+        <Filename Value="core.pas"/>
+        <Caret Line="316" TopLine="293"/>
+      </Position23>
+      <Position24>
+        <Filename Value="core.pas"/>
+        <Caret Line="116" Column="28" TopLine="107"/>
+      </Position24>
+      <Position25>
+        <Filename Value="core.pas"/>
+        <Caret Line="269" Column="33" TopLine="249"/>
+      </Position25>
+      <Position26>
+        <Filename Value="core.pas"/>
+        <Caret Line="850" Column="51" TopLine="833"/>
+      </Position26>
+      <Position27>
+        <Filename Value="core.pas"/>
+        <Caret Line="893" Column="48" TopLine="883"/>
+      </Position27>
+      <Position28>
+        <Filename Value="core.pas"/>
+        <Caret Line="299" Column="50" TopLine="281"/>
+      </Position28>
+    </JumpHistory>
+  </ProjectSession>
+</CONFIG>
