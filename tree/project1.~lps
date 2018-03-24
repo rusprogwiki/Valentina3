@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="10"/>
+    <BuildModes Active="Default"/>
+    <Units Count="6">
+      <Unit0>
+        <Filename Value="project1.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="41"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="unit1.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form1"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="Unit1"/>
+        <CursorPos X="39" Y="49"/>
+        <UsageCount Value="41"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="storage.pas"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="78"/>
+        <CursorPos X="80" Y="97"/>
+        <UsageCount Value="41"/>
+        <Loaded Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="uin.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="19"/>
+        <CursorPos X="15" Y="37"/>
+        <UsageCount Value="41"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="C:\Users\12\Desktop\ЗАДАНИЕ\3\unit1.pas"/>
+        <UnitName Value="Unit1"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="9"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="..\..\valentina2\tree\storage.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="125"/>
+        <CursorPos Y="78"/>
+        <UsageCount Value="9"/>
+      </Unit5>
+    </Units>
+    <JumpHistory Count="23" HistoryIndex="22">
+      <Position1>
+        <Filename Value="storage.pas"/>
+        <Caret Line="169" TopLine="161"/>
+      </Position1>
+      <Position2>
+        <Filename Value="storage.pas"/>
+        <Caret Line="163" TopLine="159"/>
+      </Position2>
+      <Position3>
+        <Filename Value="storage.pas"/>
+        <Caret Line="169" TopLine="162"/>
+      </Position3>
+      <Position4>
+        <Filename Value="storage.pas"/>
+        <Caret Line="163" TopLine="159"/>
+      </Position4>
+      <Position5>
+        <Filename Value="storage.pas"/>
+        <Caret Line="249" Column="19" TopLine="188"/>
+      </Position5>
+      <Position6>
+        <Filename Value="storage.pas"/>
+        <Caret Line="163" TopLine="153"/>
+      </Position6>
+      <Position7>
+        <Filename Value="storage.pas"/>
+        <Caret Line="262" TopLine="246"/>
+      </Position7>
+      <Position8>
+        <Filename Value="storage.pas"/>
+        <Caret Line="163" TopLine="152"/>
+      </Position8>
+      <Position9>
+        <Filename Value="storage.pas"/>
+        <Caret Line="269" TopLine="254"/>
+      </Position9>
+      <Position10>
+        <Filename Value="storage.pas"/>
+        <Caret Line="266" TopLine="254"/>
+      </Position10>
+      <Position11>
+        <Filename Value="storage.pas"/>
+        <Caret Line="287" TopLine="269"/>
+      </Position11>
+      <Position12>
+        <Filename Value="storage.pas"/>
+        <Caret Line="160" TopLine="143"/>
+      </Position12>
+      <Position13>
+        <Filename Value="storage.pas"/>
+        <Caret Line="148" TopLine="143"/>
+      </Position13>
+      <Position14>
+        <Filename Value="storage.pas"/>
+        <Caret Line="166" TopLine="152"/>
+      </Position14>
+      <Position15>
+        <Filename Value="storage.pas"/>
+        <Caret Line="148" TopLine="136"/>
+      </Position15>
+      <Position16>
+        <Filename Value="storage.pas"/>
+        <Caret Line="166" TopLine="134"/>
+      </Position16>
+      <Position17>
+        <Filename Value="storage.pas"/>
+        <Caret Line="160" TopLine="147"/>
+      </Position17>
+      <Position18>
+        <Filename Value="storage.pas"/>
+        <Caret Line="148" TopLine="137"/>
+      </Position18>
+      <Position19>
+        <Filename Value="storage.pas"/>
+        <Caret Line="233" TopLine="213"/>
+      </Position19>
+      <Position20>
+        <Filename Value="storage.pas"/>
+        <Caret Line="160" TopLine="147"/>
+      </Position20>
+      <Position21>
+        <Filename Value="storage.pas"/>
+        <Caret Line="235" TopLine="219"/>
+      </Position21>
+      <Position22>
+        <Filename Value="storage.pas"/>
+        <Caret Line="181" Column="82" TopLine="160"/>
+      </Position22>
+      <Position23>
+        <Filename Value="storage.pas"/>
+        <Caret Line="224" Column="43" TopLine="73"/>
+      </Position23>
+    </JumpHistory>
+  </ProjectSession>
+</CONFIG>

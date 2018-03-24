@@ -1,0 +1,526 @@
+unit storage;
+
+{$mode objfpc}{$H+}
+{$codepage UTF8}
+
+interface
+
+uses
+  Classes, SysUtils, Contnrs;
+
+// Юнит для хранения узлов, предоставляет основные структуры хранения данных и первоначальную инфраструктуру доступа
+// Ядро
+type
+    TCore=record
+
+       Name: String;      // Имя системы
+       Value: String;     // Значение системы
+       Nature: Integer;   // Простая/сложная система 0/1
+       AType: String;     // Тип системы
+    end;
+//////////////////////////////////////////////////////////////////////////
+
+// Части системы
+type
+    TPart=record
+
+        Functions: Array of Integer;                                      // Ссылки на функции
+    end;
+//////////////////////////////////////////////////////////////////////////
+
+// Система
+type
+    TSystem=class
+
+        private
+
+            procedure InitPart(Part: TPart);                              // Инициализация части системы
+            procedure InitCore();                                         // Инициализация ядра системы
+        public
+            Core: TCore;                                                  // Ядро системы
+            OpenPart: TPart;                                              // Открытая часть системы
+            ClosePart: TPart;                                             // Закртыая часть системы
+
+            constructor Create;                                           // Конструктор
+            procedure Init();                                             // Инициализатор
+            destructor Destroy(); override;                               // Деструктор
+    end;
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+
+// Параметры учета систем в хранилище
+type
+    TParams=record
+
+        Divider: String;                                                  // Символ-разделитель в сцепленном ключе
+        Hide_marker: String;                                              // Символ-маркер скрытого раздела системы
+    end;
+//////////////////////////////////////////////////////////////////////////
+
+// Список систем
+type
+    TStorage=class
+        private
+            data: TObjectList;                                                             // Список систем
+            Param: TParams;                                                                // Параметры хранения систем
+
+            // Служебные методы
+            function InsertedIndex(Name: String; Parent: Integer): Integer;                // Индекс для добавления системы в хранилище
+            function FindSystem(Name: String): Integer;                                    // Поиск системы в хранилище
+            procedure InitParams();                                                        // Инициализация параметров хранения систем
+            procedure AddRoot();                                                           // Добавление корневой системы
+            function AddSystem(Name, Value, AType: String; Nature, Index: Integer;
+                               Part: Boolean): Integer;                                    // Добавление системы
+        public
+            constructor Create;                                                            // Конструктор
+            destructor Destroy; override;                                                  // Деструктор
+            procedure Init();                                                              // Инициализатор
+
+            // Пользовательские
+            function AddSystem(Name, SuperSystem: String; Part: Boolean): Integer;         // Добавляем систему
+            function AddSystem(Name, Value, SuperSystem: String; Part: Boolean): Integer;  // Добавляем простую систему
+
+            // Отчеты
+            procedure Report_Keys(var rep: TStringList);                                   // Все пути
+            procedure ReportRoot(var rep: TStringList; prefix: String; Index: Integer);    // Полное дерево хранилища
+    end;
+//////////////////////////////////////////////////////////////////////////
+
+implementation
+
+// Полное дерево хранилища
+// rep - список для отчета
+// Предыдущая информация сохраняется
+// prefix - текстовый префикс в отчете
+// Index - Позиция в хранилище, откуда выводить дерево
+procedure ReportRoot(var rep: TStringList; prefix: String; Index: Integer);
+begin
+
+
+end;
+//////////////////////////////////////////////////////////////////////////
+
+// Добавляем простую систему
+// Name - добавляемой системы
+// Value - значение системы
+// SuperSystem - путь до родителя
+// Part - в какую часть надсистемы добавлять подсистему
+//        False - открытая часть
+//        True - закрытая часть
+// 0 - Операция прошла успешно
+// -1 - Система уже существует
+// -2 - Родитель не найден
+function TStorage.AddSystem(Name, Value, SuperSystem: String; Part: Boolean): Integer;
+var
+  Index: Integer;
+begin
+
+     // Инициализация
+     Result:=-2;
+
+     // Найдем индекс родителя
+     if SuperSystem='' then
+     begin
+
+          // От корня
+          SuperSystem:='1';
+     end
+     Else
+     begin
+
+          // Точка отсчета
+          SuperSystem:='1'+Param.Divider+SuperSystem;
+     end;
+     Index:=FindSystem(SuperSystem);
+
+     // Добавляем систему
+     Result:=AddSystem(Name, Value, '', 0, Index, Part);
+end;
+//////////////////////////////////////////////////////////////////////////
+
+// Все пути
+// Собирает и выводит все пути в хранилище
+// rep - список для отчета
+// Предыдущая информация не удаляется
+procedure TStorage.Report_Keys(var rep: TStringList);
+var
+  i, count: Integer;
+begin
+
+     // Количество элементов в системе
+     count:=data.Count;
+
+     // Просматриваем хранилище
+     for i:=0 to count-1 do
+     begin
+
+          // Добавляем пути
+          rep.Add(TSystem(data[i]).Core.Name);
+     end;
+end;
+//////////////////////////////////////////////////////////////////////////
+
+// Добавление корневой системы
+// Корневая система создается в нулевом индексе
+// Если система уже есть, она не будет создаваться
+procedure TStorage.AddRoot();
+var
+  count: Integer;
+begin
+
+     // Проверим существует ли корневой узел
+     count:=data.Count;
+
+     // Уже есть?
+     If count>0 then Exit;
+
+     // Создаем узел
+     data.Add(TSystem.Create);
+
+     // Имя узла
+     TSystem(data[0]).Core.Name:='1';
+end;
+//////////////////////////////////////////////////////////////////////////
+
+// Добавляем систему
+// Name - добавляемой системы
+// SuperSystem - путь до родителя
+// Part - в какую часть надсистемы добавлять подсистему
+//        False - открытая часть
+//        True - закрытая часть
+// 0 - Операция прошла успешно
+// -1 - Система уже существует
+// -2 - Родитель не найден
+function TStorage.AddSystem(Name, SuperSystem: String; Part: Boolean): Integer;
+var
+  Index: Integer;
+begin
+
+     // Инициализация
+     Result:=-2;
+
+     // Найдем индекс родителя
+     if SuperSystem='' then
+     begin
+
+          // От корня
+          SuperSystem:='1';
+     end
+     Else
+     begin
+
+          // Точка отсчета
+          SuperSystem:='1'+Param.Divider+SuperSystem;
+     end;
+     Index:=FindSystem(SuperSystem);
+
+     // Добавляем систему
+     Result:=AddSystem(Name, '', '', 0, Index, Part);
+end;
+//////////////////////////////////////////////////////////////////////////
+
+// Добавление системы
+// Name - добавляемой системы
+// Index - индекс родителя в хранилище
+// Part - в какую часть надсистемы добавлять подсистему
+//        False - открытая часть
+//        True - закрытая часть
+// 0 - Операция прошла успешно
+// -1 - Система уже существует
+function TStorage.AddSystem(Name, Value, AType: String; Nature, Index: Integer; Part: Boolean): Integer;
+var
+    FullKey: String;
+begin
+
+    // Инициализация
+    Result:=-1;
+
+    // Родитель указан корректно?
+    If Index<0 then Exit;
+
+    // Сцепленный ключ
+    if Part=False then
+    begin
+
+         // Открытая часть
+         FullKey:=TSystem(data[Index]).Core.Name+Param.Divider+Name;
+    end
+    Else
+    begin
+
+         // Закрытая часть
+         FullKey:=TSystem(data[Index]).Core.Name+Param.Divider+Param.Hide_marker+Param.Divider+Name;
+    end;
+    // Найдем индекс для вставки нового элемента
+    Index:=InsertedIndex(FullKey, Index);
+
+    // Система уже существует?
+    If index<0 then
+    begin
+
+         // Сообщим о проблеме
+         Result:=-1;
+         Exit;
+    end;
+
+    // Вставляем новую систему
+    data.Insert(Index, TSystem.Create);
+
+    // Имя новой системе
+    TSystem(data[Index]).Core.Name:=FullKey;
+
+    // Значение новой системе
+    TSystem(data[Index]).Core.Value:=Value;
+
+    // Природа системы
+    TSystem(data[Index]).Core.Nature:=Nature;
+
+    // Тип системы
+    TSystem(data[Index]).Core.AType:=AType;
+end;
+//////////////////////////////////////////////////////////////////////////
+
+// Поиск системы в хранилище
+// Name -Имя/путь до системы
+// Parent - Родитель
+// Возвращает идентификатор системы в хранилище
+// -1 Если система не найдена
+function TStorage.FindSystem(Name: String): Integer;
+var
+  start,finish, ex: Integer;
+  s: String;
+begin
+
+     // Инициализация
+     Result:=-1;
+     finish:=data.Count-1;
+     start:=0;
+
+     // Частный случай
+     If Name='' Then Exit;
+
+     // Сканируем хранилище половинным делением интервала
+     while finish>=start do
+     begin
+
+          // Новая точка для анализа
+          ex:=start+((finish-start) div 2);
+
+          // Совпадение
+          s:=TSystem(data[ex]).Core.Name;
+          If s=Name Then
+          begin
+
+               // Передаем индекс
+               Result:=ex;
+               Exit;
+          end;
+
+          // Корректировка интервала поиска
+          If s>Name Then
+          begin
+
+               // Подтягиваем нижнюю границу
+               finish:=ex-1;
+          end
+          Else
+          begin
+
+               // Подтягиваем верхнуюю границу диапазона
+               start:=ex+1;
+          end;
+     end;
+end;
+//////////////////////////////////////////////////////////////////////////
+
+// Индекс для добавления системы в хранилище
+// Name - Полное имя для добавления в хранилище
+// -1 - Система с таким именем уже существует
+function TStorage.InsertedIndex(Name: String; Parent: Integer): Integer;
+var
+  ex, start, finish: Integer;
+begin
+
+     // Инициализация
+     result:=-1;
+     start:=Parent;
+     finish:=data.Count-1;
+
+     // Частный случай
+     if finish<0 then
+     begin
+
+          // Сообщим о первом индексе
+          Result:=0;
+          Exit;
+     end;
+
+     // Сканируем имена половинным делением интервала
+     while start<=finish do
+     begin
+
+          // Получим интервал
+          ex:=start+((finish-start) div 2);
+
+          // Совпало?
+          if Name=TSystem(data[ex]).Core.Name then
+          begin
+
+               // Сообщим о существовании системы
+               Exit;
+          end;
+
+          // Нижняя граница
+          if Name>TSystem(data[ex]).Core.Name then
+          begin
+
+               // Подтягиваем нижнюю границу
+               start:=ex+1;
+          end
+          Else
+          begin
+
+               // Подтягиваем верхнюю границу
+               finish:=ex-1;
+          end;
+     end;
+
+     // Передаем индекс
+     Result:=start;
+end;
+//////////////////////////////////////////////////////////////////////////
+
+// Конструктор
+constructor TStorage.Create;
+begin
+
+     // Предок
+     Inherited Create;
+
+     // Хранилище
+     data:=TObjectList.Create();
+
+     // Параметры
+     InitParams();
+
+     // Суперсистема
+     AddRoot();
+end;
+//////////////////////////////////////////////////////////////////////////
+
+// Деструктор
+destructor TStorage.Destroy;
+begin
+
+     // Инициализация
+     Init();
+
+     // Хранилище
+     data.Free;
+
+     // Предок
+     Inherited Destroy;
+end;
+//////////////////////////////////////////////////////////////////////////
+
+// Инициализатор
+procedure TStorage.Init();
+var
+  i, count: Integer;
+begin
+
+     // Количество доступных систем
+     count:=data.count;
+
+     // Обнуляем в цикле
+     for i:=0 to count-1 do
+     begin
+
+          // Данные
+          data[i].Free;
+     end;
+
+     // Хранилище
+     data.Clear;
+
+     // Параметры
+     InitParams();
+
+     // Корневой узел
+     AddRoot();
+end;
+//////////////////////////////////////////////////////////////////////////
+
+// Инициализация параметров хранения систем
+procedure TStorage.InitParams();
+begin
+
+     // Установки по умолчанию
+     Param.Divider:='.';
+     Param.Hide_marker:='?';
+end;
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+
+// Деструктор
+destructor TSystem.Destroy();
+begin
+
+     // Инициализация
+     Init();
+
+     // Предок
+     Inherited Destroy;
+end;
+//////////////////////////////////////////////////////////////////////////
+
+// Инициализатор
+procedure TSystem.Init();
+begin
+
+     // Ядро
+     InitCore();
+
+     // Открытая часть
+     InitPart(OpenPart);
+
+     // Закрытая часть
+     InitPart(ClosePart);
+end;
+//////////////////////////////////////////////////////////////////////////
+
+// Инициализация ядра системы
+procedure TSystem.InitCore();
+begin
+
+     // Обнулей полей
+     Core.AType:='';
+     Core.Name:='';
+     Core.Nature:=0;
+     Core.Value:='';
+end;
+//////////////////////////////////////////////////////////////////////////
+
+// Инициализация части системы
+// Part - система, которую необходимо инициализировать
+procedure TSystem.InitPart(Part: TPart);
+begin
+
+     // Инициализация функций
+     SetLength(Part.Functions, 0);
+end;
+//////////////////////////////////////////////////////////////////////////
+
+// Конструктор
+constructor TSystem.Create;
+begin
+
+     // Предок
+     Inherited Create;
+end;
+//////////////////////////////////////////////////////////////////////////
+
+end.
+
